@@ -53,3 +53,117 @@ app.use('/',(req,res, next)=>{
    res.cookie('CookieName','cookievalue');
     next();
 });
+
+//INSTALL BODY PARSER
+==> npm install bodyparser
+==>app.use(bodyParser.json())
+const urlencodedParser = bodyParser.urlencoded({extended:false});
+const hello = (req,res,next) => {
+    console.log('hello');
+    next();
+}
+===> app.post('/api/queryadd',urlencodedParser,(req,res)=>{
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+
+    console.log(firstname)
+    console.log(lastname)
+    res.sendStatus(200)
+})
+
+// BELOW FORM_HTML
+==><html>
+    <body>
+        <h1>Enter new user</h1>
+        <form method="POST" action="/api/queryadd">
+            <div>Enter first name</div>
+            <input type="text" name="firstname" id="firstname"/>
+
+            <div>Enter lastname</div>
+            <input type="text" name="lastname" id="lastname"/>
+
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+//////////////////////
+/// EXPRESS REACT ////
+///////////////////////
+//CREATE CLIENT FOLDER
+// CREATE SERVER.JS  FILE
+==> npm init
+==> npm install body-parser express
+==> IN CLIENT
+==> npx create-react-app .
+==> npm install -g concurrently
+// GO TO PACKAGE.JSON  SERVER
+==>"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node server.js",
+  "server":"nodemon server.js",
+  "client":"npm run start --prefix client",
+  "dev":"concurrently \"npm run server\" \"npm run client\""
+},
+// SERVER.JS BELOW
+==>const express = require('express');
+const app = express();
+
+
+app.get('/api/users',(req,res)=>{
+    res.json([
+        {
+            id:1,
+            username:'Dale'
+        },
+        {
+            id:1,
+            username:'Tom'
+        }
+    ])
+})
+const port = process.env.PORT || 3001;
+app.listen(port)
+
+//GO TO CLIENT
+==> npm install axios --save
+// APP.JS BELOW
+==>import React, { Component } from 'react';
+import axios from 'axios';
+
+class App extends Component {
+  componentDidMount(){
+    axios.get('/api/users')
+    .then( response =>{
+      console.log(response.data)
+    })
+  }
+  render(){
+  return (
+    <div className="App">
+        Hello
+    </div>
+  )
+}
+}
+export default App;
+// INDEX.JS  BELOW
+==>import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// PACKEGE.JSON  CLIENT
+==>    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy":"http://localhost:3001"// IMPORTANT
+}

@@ -1,11 +1,14 @@
 {
-  "name": "08server",
+  "name": "09expressreact",
   "version": "1.0.0",
   "description": "",
-  "main": "server-node.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server":"nodemon server.js",
+    "client":"npm run start --prefix client",
+    "dev":"concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",

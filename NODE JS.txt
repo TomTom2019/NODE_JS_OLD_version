@@ -167,3 +167,7 @@ ReactDOM.render(
   },
   "proxy":"http://localhost:3001"// IMPORTANT
 }
+//////////////////////
+/// CONNECTING MONGO ////
+///////////////////////
+==> npm install mongodb

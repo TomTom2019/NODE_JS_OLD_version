@@ -171,3 +171,84 @@ ReactDOM.render(
 /// CONNECTING MONGO ////
 ///////////////////////
 ==> npm install mongodb
+
+==> const express = require('express');
+const app = express();
+const { MongoClient } = require('mongodb');
+
+const mongoUri = 'HERE YOUR MONDODB';
+
+MongoClient.connect(mongoUri,{ useUnifiedTopology: true },(err, client)=>{
+   if(err){
+        throw err;
+    }
+   console.log('connected to the db') FOR TEXTING IF YOUR DB WORKING
+})
+const port = process.env.PORT || 3001;
+app.listen(port)
+
+//////////////////////
+/// AD DATA TO DB ////
+//////////////////////
+GO TO CLIENT APP.JS  BELOW
+==>import React, { Component } from 'react';
+import axios from 'axios';
+
+class App extends Component {
+
+  addUser(){
+    axios.get('/api/users')
+    .then( response =>{
+      console.log(response.data)
+    }).catch(()=>{
+      console.log('crap')
+    })
+  }
+
+  render(){
+  return (
+    <div className="App">
+        <button
+          onClick={()=> this.addUser()}
+        >
+          Add user
+        </button>
+    </div>
+  )
+}
+}
+export default App;
+++ GO TO SERVER.JS
+==>const express = require('express');
+const app = express();
+const { MongoClient } = require('mongodb');
+
+const mongoUri = 'HERE YOUR DB';
+
+const client = new MongoClient(mongoUri);
+
+app.get('/api/users', async(req,res)=>{
+   try {
+    await client.connect(); //
+    const database = client.db('myApp');// CREATE database
+    const collection = database.collection('users')
+    const query = await collection.insertOne({
+        name:"Francis",
+        lastname:"Jones"
+    });
+
+    console.log(query)
+
+    res.status(200).json({awesome:'yes'});
+   } catch(error) {
+    throw error;
+   } finally {
+    await client.close();
+    console.log('all is done')
+   }
+})
+
+const port = process.env.PORT || 3001;
+app.listen(port)
+++ GO TO MONGO DB WEBSITE AND COLLETION  BELLOW
+{"_id":{"$oid":"614875e5e09670f77e672cea"},"name":"Francis","lastname":"Jones"}

@@ -263,7 +263,7 @@ app.listen(port)
 const app = express();
 const mongoose = require('mongoose');
 
-const mongoUri = 'mongodb+srv://admin:testing123@cluster0.lwqgg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongoUri = '';
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -288,3 +288,52 @@ app.listen(port)
 /////////////
 /// POST ////
 /////////////
+++ FIRST GO CLIENT APP.JS  BELLOW
+==>import React, { Component } from 'react';
+import axios from 'axios';
+
+class App extends Component {
+
+  onSubmitCar(){
+   axios.post('/api/addcar',{
+      brand: 'Ford',
+      model: 'Focus',
+      year: 2000,
+      avail: true
+   })
+   .then( response => {
+     console.log(response.data)
+   })
+  }
+
+
+  render(){
+  return (
+    <div className="App">
+        <button
+          onClick={()=> this.onSubmitCar()}
+        >
+          Add car
+        </button>
+    </div>
+  )
+}
+}
+
+export default App;
+++ SERVER.JS BELOW
+==> npm install body-parser
+
+==>app.post('/api/addcar',(req,res)=>{
+    const addCar = new Car({
+        brand: req.body.brand,
+        model:req.body.model,
+        year: req.body.year,
+        avail: req.body.avail
+    })
+
+    addCar.save((err,doc)=>{
+        if(err) return console.log(err)
+        res.status(200).json(doc)
+    })
+})

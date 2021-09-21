@@ -3,7 +3,7 @@ const app = express();
 const { MongoClient } = require('mongodb');
 
 
-const mongoUri = 'mongodb+srv://admin:testing123@cluster0.3nee9.mongodb.net?retryWrites=true&w=majority';
+const mongoUri = '';
 const client = new MongoClient(mongoUri);
 
 

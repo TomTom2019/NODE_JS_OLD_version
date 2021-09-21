@@ -3,13 +3,16 @@ import axios from 'axios';
 
 class App extends Component {
 
-  addUser(){
-    axios.get('/api/users')
-    .then( response =>{
-      console.log(response.data)
-    }).catch(()=>{
-      console.log('crap')
-    })
+  onSubmitCar(){
+   axios.post('/api/addcar',{
+      brand: 'Ford',
+      model: 'Focus',
+      year: 2000,
+      avail: true
+   })
+   .then( response => {
+     console.log(response.data)
+   })
   }
 
 
@@ -17,9 +20,9 @@ class App extends Component {
   return (
     <div className="App">
         <button
-          onClick={()=> this.addUser()}
+          onClick={()=> this.onSubmitCar()}
         >
-          Add user
+          Add car
         </button>
     </div>
   )

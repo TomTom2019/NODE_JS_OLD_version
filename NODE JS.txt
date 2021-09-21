@@ -218,7 +218,7 @@ class App extends Component {
 }
 }
 export default App;
-++ GO TO SERVER.JS
+++ GO TO  server-mongo-driver.js
 ==>const express = require('express');
 const app = express();
 const { MongoClient } = require('mongodb');
@@ -252,3 +252,39 @@ const port = process.env.PORT || 3001;
 app.listen(port)
 ++ GO TO MONGO DB WEBSITE AND COLLETION  BELLOW
 {"_id":{"$oid":"614875e5e09670f77e672cea"},"name":"Francis","lastname":"Jones"}
+
+////////////////////////////
+/// MONGOOSE MODEL SCHEMA ////
+/////////////////////////////
+++ OTHER WAY TO CONNECT DATABASE
+==> npm install mongoose --save FOR COURSE mongoose@5.11.7
+
+==>const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+
+const mongoUri = 'mongodb+srv://admin:testing123@cluster0.lwqgg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(mongoUri,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+////////////////////////////////// carSchema DONT FORGET Schema CAPITAL LETTER
+
+const carSchema = mongoose.Schema({
+    brand: String,
+    model:String,
+    year: Number,
+    avail: Boolean
+});
+
+const Car = mongoose.model('Car',carSchema);//CAPITAL LETTER
+
+/////////////////////////////////
+
+const port = process.env.PORT || 3001;
+app.listen(port)
+
+/////////////
+/// POST ////
+/////////////

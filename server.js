@@ -38,7 +38,43 @@ app.post('/api/addcar',(req,res)=>{
     })
 })
 
+app.get('/api/getcars',(req,res)=>{
+    Car.find({},(err,doc)=>{
+        if(err) return console.log(err)
+        res.json(doc)
+    })
+})
 
+
+app.post('/api/removeCar',(req,res)=>{
+    const brand = req.body.brand;
+    Car.remove({},(err,doc)=>{
+        if(err) return console.log(err);
+        res.json(doc)
+    })
+})
+
+app.post('/api/updateCar',(req,res)=>{
+    const id = req.body.id;
+    const brand = req.body.brand;
+
+    Car.findById(id,(err,car)=>{
+        if(err) return console.log(err);
+
+        car.set({
+            brand:brand
+        });
+        car.save((err,doc)=>{
+            if(err) return console.log(err);
+            res.json(doc);
+        })
+    })
+    // Car.findByIdAndUpdate(id, {$set:{ brand:brand }},{new:true},(err,doc)=>{
+    //     if(err) return console.log(err);
+    //     console.log(doc)
+    //     res.json(doc)
+    // });
+})
 
 
 const port = process.env.PORT || 3001;

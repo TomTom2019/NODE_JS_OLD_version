@@ -337,3 +337,60 @@ export default App;
         res.status(200).json(doc)
     })
 })
+/////////////
+/// GET ////
+////////////
+===>app.get('/api/getcars',(req,res)=>{
+    Car.find({brand:'Ford'},(err,doc)=>{ // CAR.FIND ({BRAND:'Ford'}) CAPITAL F
+        if(err) return console.log(err)
+        console.log(doc)
+        res.json([doc])
+    })
+})
+
+// findOne HAVE LOT DIFFERENT CODE
+==>app.get('/api/getcars',(req,res)=>{
+    Car.findOne({_id:'6149c67be56e7d5a1893b788'},(err,doc)=>{
+        if(err) return console.log(err)
+        console.log(doc)
+        res.json([doc])
+    })
+})
+
+
+///////////////
+/// REMOVE ////
+//////////////
+
+++ GO TO SERVER.JS
+===>app.post('/api/removeCar',(req,res)=>{
+    const brand = req.body.brand;
+    Car.remove({},(err,doc)=>{
+        if(err) return console.log(err);
+        res.json(doc)
+    })
+})
+///////////////
+/// UPDATE ////
+//////////////
+==>app.post('/api/updateCar',(req,res)=>{
+    const id = req.body.id;
+    const brand = req.body.brand;
+
+    Car.findById(id,(err,car)=>{
+        if(err) return console.log(err);
+
+        car.set({
+            brand:brand
+        });
+        car.save((err,doc)=>{
+            if(err) return console.log(err);
+            res.json(doc);
+        })
+    })
+    // Car.findByIdAndUpdate(id, {$set:{ brand:brand }},{new:true},(err,doc)=>{
+    //     if(err) return console.log(err);
+    //     console.log(doc)
+    //     res.json(doc)
+    // });
+})

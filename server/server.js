@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 
-const mongoUri = 'mongodb+srv://admin:testing123@cluster0.lwqgg.mongodb.net/authApp?retryWrites=true&w=majority';
+const mongoUri = '';
 mongoose.connect(mongoUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true

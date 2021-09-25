@@ -394,3 +394,30 @@ export default App;
     //     res.json(doc)
     // });
 })
+/////////////
+/// CREATE PROJET ////
+/////////////
+==> npm init
+==> npm install express body-parser mongoose -- save
+++ USER.JS BELOW
+==>const mongoose = require('mongoose');
+
+const userSchema = mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        trim:true,// FOR SPACE
+        unique: 1 // EMAIL UNIQUE
+    },
+    password:{
+        type:String,
+        required:true,
+        minlength: 6
+    }
+})
+
+const User = mongoose.model('User',userSchema);
+module.exports = { User }
+/////////////////////
+/// REGISTER USER ////
+///////////////////

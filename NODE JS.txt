@@ -395,7 +395,7 @@ export default App;
     // });
 })
 /////////////
-/// CREATE PROJET ////
+/// CREATE PROJET //// FOLLOW FILES
 /////////////
 ==> npm init
 ==> npm install express body-parser mongoose -- save
@@ -421,3 +421,20 @@ module.exports = { User }
 /////////////////////
 /// REGISTER USER ////
 ///////////////////
+==>/// ROUTES NO HASH
+app.post('/api/user',(req,res)=>{
+    const user = new User({
+        email: req.body.email,
+        password: req.body.password
+    });
+    user.save((err,doc)=>{
+        if(err) res.status(400).send(err);
+        res.status(200).send(doc);
+    });
+})
+// GO TO POSTMAN
+==> http://localhost:3001/api/user
+/////////////////////
+/// HASH PASSWORD ////
+///////////////////
+==> npm install bcrypt
